@@ -526,9 +526,13 @@ document.getElementById("importFile").addEventListener("change",e=>{
   r.readAsText(f);
 });
 
-const first = pickNext();
-index = words.indexOf(first);
+
+if (typeof pickNext === "function" && words.length > 0) {
+  const first = pickNext();
+  index = words.indexOf(first);
+}
 render();
+
 
 </script>
 </body>
