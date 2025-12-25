@@ -19,7 +19,7 @@ body{
   margin:0;
   background:var(--bg);
   color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",Arial,sans-serif;
 }
 .container{max-width:900px;margin:0 auto;padding:20px}
 .card{
@@ -32,7 +32,6 @@ body{
   font-family:"Times New Roman",serif;
   font-size:72px;
   text-align:center;
-  margin:12px 0;
 }
 .phonetic{
   font-family:"Times New Roman",serif;
@@ -80,7 +79,6 @@ body{
   align-items:center;
   gap:14px;
   color:var(--sub);
-  font-size:16px;
 }
 @media (max-width:600px){
   .word{font-size:52px}
@@ -97,7 +95,6 @@ body{
     <div id="word" class="word"></div>
 
     <div class="phonetic">
-      <span id="phoneticText"></span>
       <button onclick="speak()">🔊</button>
     </div>
 
@@ -114,7 +111,7 @@ body{
       <div>
         <button onclick="exportProgress()">📤 导出进度</button>
         <button onclick="importProgress()">📥 导入进度</button>
-        <input type="file" id="importFile" accept=".json">
+        <input type="file" id="importFile" accept=".json" hidden>
       </div>
     </div>
 
@@ -412,11 +409,9 @@ const words = [
   {word:"malignant melanoma",meaning:"恶性黑色素瘤",known:0,interval:1,due:0},
   {word:"invasive tumor front (ITF)",meaning:"肿瘤浸润前沿",known:0,interval:1,due:0}
 ];
-
 let index = 0;
 let step = 0;
 
-  
 /* ========= 本地存储 ========= */
 function save(){
   localStorage.setItem("oral_words",JSON.stringify(words));
@@ -430,21 +425,15 @@ function load(){
 }
 load();
 
-/* ========= 选下一个词（核心调度） ========= */
+/* ========= 随机调度 ========= */
 function pickNext(){
   step++;
 
-  // 优先：10 个内必须复现的（未满 3 次）
-  let urgent = words.filter(w=>w.known<3 && step-w.due>=1);
-  if(urgent.length){
-    return urgent[Math.floor(Math.random()*urgent.length)];
-  }
+  let urgent = words.filter(w=>w.known<3 && step>=w.due);
+  if(urgent.length) return urgent[Math.floor(Math.random()*urgent.length)];
 
-  // 已背词：按记忆曲线
   let review = words.filter(w=>w.known>=3 && step>=w.due);
-  if(review.length){
-    return review[Math.floor(Math.random()*review.length)];
-  }
+  if(review.length) return review[Math.floor(Math.random()*review.length)];
 
   return words[Math.floor(Math.random()*words.length)];
 }
@@ -462,26 +451,20 @@ function gotoWord(w){
   render();
 }
 
-/* ========= 按钮逻辑 ========= */
+/* ========= 按钮 ========= */
 function prevWord(){
   index = (index-1+words.length)%words.length;
   render(); save();
 }
 function markUnknown(){
-  const w = words[index];
-  w.due = step + Math.floor(Math.random()*10)+1;
+  words[index].due = step + Math.floor(Math.random()*5)+1;
   gotoWord(pickNext());
   save();
 }
 function markKnown(){
   const w = words[index];
   w.known++;
-  if(w.known < 3){
-    w.due = step + Math.floor(Math.random()*10)+1;
-  }else{
-    w.interval = Math.ceil(w.interval*1.5);
-    w.due = step + w.interval;
-  }
+  w.due = step + (w.known<3 ? 3 : Math.ceil(w.interval*=1.5));
   gotoWord(pickNext());
   save();
 }
@@ -493,47 +476,36 @@ function speak(){
   speechSynthesis.speak(u);
 }
 
-/* ========= 导出（保证成功） ========= */
+/* ========= 导入导出 ========= */
 function exportProgress(){
-  const data = JSON.stringify({words,step},null,2);
-  const blob = new Blob([data],{type:"application/json"});
-  const url = URL.createObjectURL(blob);
-
+  const blob = new Blob([JSON.stringify({words,step},null,2)],{type:"application/json"});
   const a = document.createElement("a");
-  a.href = url;
+  a.href = URL.createObjectURL(blob);
   a.download = "oral_pathology_progress.json";
-  document.body.appendChild(a);
   a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
 }
-
-/* ========= 导入 ========= */
 function importProgress(){
   document.getElementById("importFile").click();
 }
 document.getElementById("importFile").addEventListener("change",e=>{
-  const f = e.target.files[0];
+  const f=e.target.files[0];
   if(!f) return;
-  const r = new FileReader();
+  const r=new FileReader();
   r.onload=()=>{
-    const d = JSON.parse(r.result);
+    const d=JSON.parse(r.result);
     words.splice(0,words.length,...d.words);
-    step = d.step||0;
+    step=d.step||0;
     save(); render();
-    alert("进度导入成功 ✅");
+    alert("进度已恢复 ✅");
   };
   r.readAsText(f);
 });
 
-
-if (typeof pickNext === "function" && words.length > 0) {
-  const first = pickNext();
-  index = words.indexOf(first);
-}
+/* ========= 首次随机 ========= */
+const first = pickNext();
+index = words.indexOf(first);
 render();
-
-
 </script>
+
 </body>
 </html>
