@@ -32,8 +32,14 @@ body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,
 <button class="btn known" onclick="markKnown()">认识</button>
 </div>
 <div class="footer">
-<div>待背：<span id="todo"></span> ｜ 已背：<span id="done"></span></div>
-</div>
+<div>待背：<span id="todo"></span> ｜ 已背：<span id="done"></span>
+</div>    <!-- 进度导入导出 -->
+    <div style="margin-top: 20px;">
+      <button onclick="exportProgress()">📤 导出进度</button>
+      <button onclick="importProgress()">📥 导入进度</button>
+      <input type="file" id="importFile" accept=".json">
+    </div>
+  </div>
 </div>
 </div>
 <script>
@@ -59,6 +65,46 @@ function markUnknown(){next();save();render();}
 function markKnown(){words[index].known++;next();save();render();}
 function speak(){const u=new SpeechSynthesisUtterance(words[index].word);u.lang='en-US';speechSynthesis.speak(u);}
 render();
+ 
+    /* ===== 进度导出 ===== */
+    function exportProgress() {
+      const blob = new Blob(
+        [JSON.stringify({ words, currentIndex }, null, 2)],
+        { type: "application/json" }
+      );
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "oral_pathology_progress.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    /* ===== 进度导入 ===== */
+    function importProgress() {
+      document.getElementById("importFile").click();
+    }
+
+    document
+      .getElementById("importFile")
+      .addEventListener("change", function (e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function () {
+          const data = JSON.parse(reader.result);
+          words = data.words;
+          currentIndex = data.currentIndex || 0;
+          saveProgress();
+          renderWord();
+          alert("进度导入成功 ✅");
+        };
+        reader.readAsText(file);
+      });
+
+    loadProgress();
+    renderWord
 </script>
 </body>
 </html>
