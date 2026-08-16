@@ -6375,35 +6375,111 @@ const words = [
   }
 ];
 
+const MASTER_THRESHOLD=3;
+const REVIEW_GAPS=[3,8,25];
+
 let history=[];
+let currentRound=Number(localStorage.getItem("reviewRound"))||0;
 let currentIndex=Number(localStorage.getItem("currentIndex"))||0;
 let saved=JSON.parse(localStorage.getItem("progress")||"null");
+
+function normalizeWord(w){
+  w.known=Number(w.known)||0;
+  w.unknown=Number(w.unknown)||0;
+  const knownStreak=Number(w.knownStreak);
+  w.knownStreak=Number.isFinite(knownStreak)?knownStreak:Math.min(w.known,MASTER_THRESHOLD);
+  w.mastered=typeof w.mastered==="boolean"?w.mastered:w.knownStreak>=MASTER_THRESHOLD||w.known>=MASTER_THRESHOLD;
+  w.lastSeen=Number.isFinite(Number(w.lastSeen))?Number(w.lastSeen):-1;
+  w.nextReview=Number.isFinite(Number(w.nextReview))?Number(w.nextReview):0;
+}
 
 if(saved){
   saved.forEach((s,i)=>{
     if(words[i]){
       words[i].known=s.known;
       words[i].unknown=s.unknown;
+      words[i].knownStreak=s.knownStreak;
+      words[i].mastered=s.mastered;
+      words[i].lastSeen=s.lastSeen;
+      words[i].nextReview=s.nextReview;
     }
   });
 }
 
+words.forEach(normalizeWord);
+
 function render(){
   const w=words[currentIndex];
-  document.getElementById("stat").innerText=`不认识 ${w.unknown} 次 ｜ 认识 ${w.known} 次`;
+  document.getElementById("stat").innerText=`不认识 ${w.unknown} 次 ｜ 连续认识 ${w.knownStreak}/${MASTER_THRESHOLD} ｜ ${w.mastered?"已背":"复习中"}`;
   document.getElementById("word").innerText=w.word;
   document.getElementById("meaning").innerText=w.meaning;
   document.getElementById("note").innerHTML=`<span>备注：${w.subject}</span>`;
-  document.getElementById("todo").innerText=words.filter(w=>w.known<3).length;
-  document.getElementById("done").innerText=words.filter(w=>w.known>=3).length;
+  document.getElementById("todo").innerText=words.filter(w=>!w.mastered).length;
+  document.getElementById("done").innerText=words.filter(w=>w.mastered).length;
   save();
 }
 
-function markKnown(){words[currentIndex].known++;pickNext();render();}
-function markUnknown(){words[currentIndex].unknown++;pickNext();render();}
+function markKnown(){
+  const w=words[currentIndex];
+  currentRound++;
+  history.push(currentIndex);
+  w.known++;
+  w.knownStreak++;
+  w.lastSeen=currentRound;
+  w.mastered=w.knownStreak>=MASTER_THRESHOLD;
+  w.nextReview=currentRound+(w.mastered?REVIEW_GAPS[2]:REVIEW_GAPS[Math.min(w.knownStreak-1,1)]);
+  pickNext();
+  render();
+}
+
+function markUnknown(){
+  const w=words[currentIndex];
+  currentRound++;
+  history.push(currentIndex);
+  w.unknown++;
+  w.knownStreak=0;
+  w.mastered=false;
+  w.lastSeen=currentRound;
+  w.nextReview=currentRound+2+Math.floor(Math.random()*3);
+  pickNext();
+  render();
+}
 
 function pickNext(){
-  currentIndex=Math.floor(Math.random()*words.length);
+  const chooseWeighted=(candidates)=>{
+    const weighted=candidates.map(i=>{
+      const w=words[i];
+      const spacing=Math.max(0,currentRound-w.lastSeen);
+      const score=1+(w.unknown*3)+(w.mastered?0.25:2)+(spacing/12);
+      return {i,score};
+    });
+    const total=weighted.reduce((sum,item)=>sum+item.score,0);
+    let roll=Math.random()*total;
+    for(const item of weighted){
+      roll-=item.score;
+      if(roll<=0) return item.i;
+    }
+    return weighted[weighted.length-1].i;
+  };
+
+  const notCurrent=(w,i)=>i!==currentIndex;
+  const due=words
+    .map((w,i)=>({w,i}))
+    .filter(({w,i})=>notCurrent(w,i)&&w.nextReview<=currentRound);
+  const newWords=due.filter(({w})=>!w.mastered&&w.known===0&&w.unknown===0).map(({i})=>i);
+  const learning=due.filter(({w})=>!w.mastered&&(w.known>0||w.unknown>0)).map(({i})=>i);
+  const masteredDue=due.filter(({w})=>w.mastered).map(({i})=>i);
+
+  if(learning.length) currentIndex=chooseWeighted(learning);
+  else if(newWords.length) currentIndex=chooseWeighted(newWords);
+  else if(masteredDue.length) currentIndex=chooseWeighted(masteredDue);
+  else {
+    const reviewPool=words
+      .map((w,i)=>({w,i}))
+      .filter(({w,i})=>notCurrent(w,i)&&(!w.mastered||currentRound%18===0))
+      .map(({i})=>i);
+    currentIndex=chooseWeighted(reviewPool.length?reviewPool:words.map((_,i)=>i).filter(i=>i!==currentIndex));
+  }
 }
 
 function speak(){
@@ -6414,7 +6490,15 @@ function speak(){
 
 function save(){
   localStorage.setItem("currentIndex",currentIndex);
-  localStorage.setItem("progress",JSON.stringify(words.map(w=>({known:w.known,unknown:w.unknown}))));
+  localStorage.setItem("reviewRound",currentRound);
+  localStorage.setItem("progress",JSON.stringify(words.map(w=>({
+    known:w.known,
+    unknown:w.unknown,
+    knownStreak:w.knownStreak,
+    mastered:w.mastered,
+    lastSeen:w.lastSeen,
+    nextReview:w.nextReview
+  }))));
 }
 
 /* ===== 悬浮窗逻辑 ===== */
@@ -6448,7 +6532,7 @@ function closeModal(e){
 }
 
 function exportProgress(){
-  const blob=new Blob([JSON.stringify({words,currentIndex},null,2)],{type:"application/json"});
+  const blob=new Blob([JSON.stringify({words,currentIndex,currentRound},null,2)],{type:"application/json"});
   const a=document.createElement("a");
   a.href=URL.createObjectURL(blob);
   a.download="oral_professional_english_progress.json";
@@ -6467,9 +6551,15 @@ document.getElementById("importFile").addEventListener("change",e=>{
       if(words[i]){
         words[i].known=w.known;
         words[i].unknown=w.unknown;
+        words[i].knownStreak=w.knownStreak;
+        words[i].mastered=w.mastered;
+        words[i].lastSeen=w.lastSeen;
+        words[i].nextReview=w.nextReview;
+        normalizeWord(words[i]);
       }
     });
     currentIndex=d.currentIndex||0;
+    currentRound=d.currentRound||currentRound;
     save();render();
   };
   r.readAsText(e.target.files[0]);
