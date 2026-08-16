@@ -101,6 +101,17 @@ body{
   gap:14px;
   color:#6e6e73;
 }
+.link-count{
+  padding:0;
+  border:none;
+  background:none;
+  color:#007aff;
+  font:inherit;
+  cursor:pointer;
+}
+.link-count:hover{
+  text-decoration:underline;
+}
 
 /* ===== 悬浮窗 ===== */
 .modal{
@@ -124,6 +135,26 @@ body{
 .modal h2{
   margin:0 0 12px;
   text-align:center;
+}
+.modal-tools{
+  position:sticky;
+  top:0;
+  background:#fff;
+  padding:8px 0 12px;
+  z-index:2;
+}
+.search{
+  width:100%;
+  height:42px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:0 14px;
+  font-size:16px;
+  outline:none;
+}
+.search:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(0,122,255,.12);
 }
 .close{
   position:sticky;
@@ -179,9 +210,9 @@ td.cn{
 </div>
 
 <div class="footer">
-  <div>待背：<span id="todo"></span> ｜ 已背：<span id="done"></span></div>
+  <div>待背：<span id="todo"></span> ｜ 已背：<button id="doneBtn" class="link-count" onclick="openModal('mastered')"><span id="done"></span></button></div>
   <div>
-    <button onclick="openModal()">📋 查看所有单词</button>
+    <button onclick="openModal('all')">📋 查看所有单词</button>
     <button onclick="exportProgress()">📤 导出进度</button>
     <button onclick="importProgress()">📥 导入进度</button>
     <input type="file" id="importFile" accept=".json" style="display:none">
@@ -195,7 +226,10 @@ td.cn{
 <div id="modal" class="modal" onclick="closeModal(event)">
   <div class="modal-content">
     <span class="close" onclick="closeModal()">✖</span>
-    <h2>📘 全部单词一览（A–Z）</h2>
+    <h2 id="modalTitle">📘 全部单词一览（A–Z）</h2>
+    <div class="modal-tools">
+      <input id="wordSearch" class="search" type="search" placeholder="搜索英文、中文或备注" oninput="renderWordTable()">
+    </div>
     <table>
       <thead>
         <tr>
@@ -6382,6 +6416,7 @@ let history=[];
 let currentRound=Number(localStorage.getItem("reviewRound"))||0;
 let currentIndex=Number(localStorage.getItem("currentIndex"))||0;
 let saved=JSON.parse(localStorage.getItem("progress")||"null");
+let modalMode="all";
 
 function normalizeWord(w){
   w.known=Number(w.known)||0;
@@ -6502,12 +6537,27 @@ function save(){
 }
 
 /* ===== 悬浮窗逻辑 ===== */
-function openModal(){
+function openModal(mode="all"){
+  modalMode=mode;
+  document.getElementById("modalTitle").innerText=mode==="mastered"?"✅ 已背单词一览":"📘 全部单词一览（A–Z）";
+  document.getElementById("wordSearch").value="";
   document.getElementById("modal").style.display="flex";
+  renderWordTable();
+}
+
+function renderWordTable(){
   const tbody=document.getElementById("wordTable");
+  const keyword=document.getElementById("wordSearch").value.trim().toLowerCase();
   tbody.innerHTML="";
   const fragment=document.createDocumentFragment();
-  [...words].sort((a,b)=>a.word.localeCompare(b.word)).forEach(w=>{
+  words
+    .filter(w=>modalMode!=="mastered"||w.mastered)
+    .filter(w=>{
+      if(!keyword) return true;
+      return [w.word,w.meaning,w.subject].some(text=>String(text).toLowerCase().includes(keyword));
+    })
+    .sort((a,b)=>a.word.localeCompare(b.word))
+    .forEach(w=>{
     const tr=document.createElement("tr");
     [
       {text:w.word,className:"en"},
