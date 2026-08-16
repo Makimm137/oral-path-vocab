@@ -72,7 +72,48 @@ body{
 .speaker-icon{
   width:23px;
   height:23px;
-  display:block;
+  display:inline-block;
+  position:relative;
+}
+.speaker-core{
+  position:absolute;
+  left:1px;
+  top:7px;
+  width:8px;
+  height:9px;
+  border-radius:2px 0 0 2px;
+  background:currentColor;
+}
+.speaker-core::after{
+  content:"";
+  position:absolute;
+  left:7px;
+  top:-5px;
+  width:0;
+  height:0;
+  border-top:10px solid transparent;
+  border-bottom:10px solid transparent;
+  border-left:11px solid currentColor;
+}
+.speaker-wave{
+  position:absolute;
+  top:50%;
+  border:2px solid currentColor;
+  border-left:none;
+  border-top-color:transparent;
+  border-bottom-color:transparent;
+  border-radius:50%;
+  transform:translateY(-50%);
+}
+.speaker-wave.one{
+  left:14px;
+  width:7px;
+  height:12px;
+}
+.speaker-wave.two{
+  left:17px;
+  width:10px;
+  height:18px;
 }
 .phonetic-text{
   font-family:"Times New Roman",serif;
@@ -380,11 +421,11 @@ td.cn{
 <div id="word" class="word"></div>
 <div class="phonetic">
   <button onclick="speak()" aria-label="播放发音">
-    <svg class="speaker-icon" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"></path>
-      <path d="M16 8.5c1 .9 1.5 2.1 1.5 3.5s-.5 2.6-1.5 3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-      <path d="M18.8 5.7A8.8 8.8 0 0 1 21 12a8.8 8.8 0 0 1-2.2 6.3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-    </svg>
+    <span class="speaker-icon" aria-hidden="true">
+      <span class="speaker-core"></span>
+      <span class="speaker-wave one"></span>
+      <span class="speaker-wave two"></span>
+    </span>
   </button>
   <span id="phoneticText" class="phonetic-text"></span>
 </div>
@@ -6775,12 +6816,22 @@ const words = [
 
 const MASTER_THRESHOLD=3;
 const REVIEW_GAPS=[3,8,25];
+const REVIEW_MIX_MIN=15;
+const REVIEW_MIX_MAX=25;
 
 let history=JSON.parse(localStorage.getItem("history")||"[]");
 let currentRound=Number(localStorage.getItem("reviewRound"))||0;
+const storedSinceLastMasteredReview=localStorage.getItem("sinceLastMasteredReview");
+const storedNextMasteredReviewAt=localStorage.getItem("nextMasteredReviewAt");
+let sinceLastMasteredReview=storedSinceLastMasteredReview===null?REVIEW_MIX_MIN:Number(storedSinceLastMasteredReview)||0;
+let nextMasteredReviewAt=storedNextMasteredReviewAt===null?REVIEW_MIX_MIN:Number(storedNextMasteredReviewAt)||randomReviewInterval();
 let currentIndex=Number(localStorage.getItem("currentIndex"))||0;
 let saved=JSON.parse(localStorage.getItem("progress")||"null");
 let modalMode="all";
+
+function randomReviewInterval(){
+  return REVIEW_MIX_MIN+Math.floor(Math.random()*(REVIEW_MIX_MAX-REVIEW_MIX_MIN+1));
+}
 
 function normalizeWord(w){
   w.known=Number(w.known)||0;
@@ -6821,6 +6872,7 @@ function render(){
 
 function markKnown(){
   const w=words[currentIndex];
+  const wasMastered=w.mastered;
   currentRound++;
   history.push(currentIndex);
   w.known++;
@@ -6828,12 +6880,14 @@ function markKnown(){
   w.lastSeen=currentRound;
   w.mastered=w.knownStreak>=MASTER_THRESHOLD;
   w.nextReview=currentRound+(w.mastered?REVIEW_GAPS[2]:REVIEW_GAPS[Math.min(w.knownStreak-1,1)]);
+  updateReviewMix(wasMastered);
   pickNext();
   render();
 }
 
 function markUnknown(){
   const w=words[currentIndex];
+  const wasMastered=w.mastered;
   currentRound++;
   history.push(currentIndex);
   w.unknown++;
@@ -6841,8 +6895,18 @@ function markUnknown(){
   w.mastered=false;
   w.lastSeen=currentRound;
   w.nextReview=currentRound+2+Math.floor(Math.random()*3);
+  updateReviewMix(wasMastered);
   pickNext();
   render();
+}
+
+function updateReviewMix(wasMastered){
+  if(wasMastered){
+    sinceLastMasteredReview=0;
+    nextMasteredReviewAt=randomReviewInterval();
+  }else{
+    sinceLastMasteredReview++;
+  }
 }
 
 function prevWord(){
@@ -6877,8 +6941,14 @@ function pickNext(){
   const newWords=due.filter(({w})=>!w.mastered&&w.known===0&&w.unknown===0).map(({i})=>i);
   const learning=due.filter(({w})=>!w.mastered&&(w.known>0||w.unknown>0)).map(({i})=>i);
   const masteredDue=due.filter(({w})=>w.mastered).map(({i})=>i);
+  const masteredPool=words
+    .map((w,i)=>({w,i}))
+    .filter(({w,i})=>notCurrent(w,i)&&w.mastered)
+    .map(({i})=>i);
 
-  if(learning.length) currentIndex=chooseWeighted(learning);
+  if(masteredPool.length&&sinceLastMasteredReview>=nextMasteredReviewAt){
+    currentIndex=chooseWeighted(masteredDue.length?masteredDue:masteredPool);
+  }else if(learning.length) currentIndex=chooseWeighted(learning);
   else if(newWords.length) currentIndex=chooseWeighted(newWords);
   else if(masteredDue.length) currentIndex=chooseWeighted(masteredDue);
   else {
@@ -6953,6 +7023,8 @@ function roughPhonetic(word){
 function save(){
   localStorage.setItem("currentIndex",currentIndex);
   localStorage.setItem("reviewRound",currentRound);
+  localStorage.setItem("sinceLastMasteredReview",sinceLastMasteredReview);
+  localStorage.setItem("nextMasteredReviewAt",nextMasteredReviewAt);
   localStorage.setItem("history",JSON.stringify(history.slice(-80)));
   localStorage.setItem("progress",JSON.stringify(words.map(w=>({
     known:w.known,
@@ -7010,7 +7082,7 @@ function closeModal(e){
 }
 
 function exportProgress(){
-  const blob=new Blob([JSON.stringify({words,currentIndex,currentRound},null,2)],{type:"application/json"});
+  const blob=new Blob([JSON.stringify({words,currentIndex,currentRound,sinceLastMasteredReview,nextMasteredReviewAt},null,2)],{type:"application/json"});
   const a=document.createElement("a");
   a.href=URL.createObjectURL(blob);
   a.download="oral_professional_english_progress.json";
@@ -7038,6 +7110,8 @@ document.getElementById("importFile").addEventListener("change",e=>{
     });
     currentIndex=d.currentIndex||0;
     currentRound=d.currentRound||currentRound;
+    sinceLastMasteredReview=Number(d.sinceLastMasteredReview)||0;
+    nextMasteredReviewAt=Number(d.nextMasteredReviewAt)||randomReviewInterval();
     save();render();
   };
   r.readAsText(e.target.files[0]);
