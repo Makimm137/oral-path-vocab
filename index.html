@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>口腔组织病理学 · 背单词</title>
+<title>口腔专业英语 · 背单词</title>
 
 <style>
 :root{
@@ -11,22 +11,25 @@
   --card:#ffffff;
   --primary:#007aff;
   --warn:#ff9f0a;
+  --soft:#e8f3ff;
+  --line:#e8e8ed;
   --text:#1d1d1f;
   --sub:#6e6e73;
 }
 *{box-sizing:border-box}
 body{
   margin:0;
-  background:var(--bg);
+  background:linear-gradient(180deg,#f4f8fb 0%,var(--bg) 52%,#f7f7f9 100%);
   color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
 }
 .container{max-width:900px;margin:0 auto;padding:20px}
 .card{
   background:var(--card);
-  border-radius:28px;
-  padding:32px 26px;
-  box-shadow:0 12px 30px rgba(0,0,0,.08);
+  border:1px solid rgba(0,0,0,.04);
+  border-radius:24px;
+  padding:34px 28px;
+  box-shadow:0 18px 45px rgba(20,42,70,.10);
 }
 
 .stat{
@@ -53,8 +56,24 @@ body{
   font-family:"Microsoft YaHei","PingFang SC",sans-serif;
   text-align:center;
   background:#fafafa;
-  border-radius:22px;
+  border:1px solid var(--line);
+  border-radius:18px;
   padding:20px;
+}
+.note{
+  margin-top:14px;
+  text-align:center;
+  color:var(--sub);
+  font-size:17px;
+}
+.note span{
+  display:inline-flex;
+  align-items:center;
+  min-height:28px;
+  padding:4px 12px;
+  border-radius:999px;
+  background:var(--soft);
+  color:#0b5cad;
 }
 .controls{
   display:flex;
@@ -151,6 +170,7 @@ td.cn{
 <div id="word" class="word"></div>
 <div class="phonetic"><button onclick="speak()">🔊</button></div>
 <div id="meaning" class="meaning"></div>
+<div id="note" class="note"></div>
 
 <div class="controls">
   <button class="btn prev" onclick="prevWord()">上一页</button>
@@ -181,6 +201,7 @@ td.cn{
         <tr>
           <th>英文</th>
           <th>中文</th>
+          <th>备注</th>
           <th>不认识</th>
           <th>认识</th>
         </tr>
@@ -192,8 +213,6166 @@ td.cn{
 
 <script>
 const words = [
-  {"word":"neural crest","meaning":"神经嵴","known":0,"unknown":0},
-  {"word":"acellular afibrillar cementum, AAC","meaning":"无细胞无纤维牙骨质","known":0,"unknown":0}
+  {
+    "word": "Langer cleavage lines",
+    "meaning": "裂线",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "curve of Wilson",
+    "meaning": "曲线",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "diploic vein",
+    "meaning": "板障静脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "transluence parameter",
+    "meaning": "透明度",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "transluence",
+    "meaning": "透明性",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "chroma",
+    "meaning": "广度",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "dorsal nasal artery",
+    "meaning": "背动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "nasolabial sulcus",
+    "meaning": "唇沟",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "nasion",
+    "meaning": "根点",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "nostril",
+    "meaning": "孔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "nasofacial sulcus",
+    "meaning": "面沟",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "nasal airway resistance, NAR",
+    "meaning": "鼻气道阻力",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "nasal notch",
+    "meaning": "鼻切迹",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "subnasale",
+    "meaning": "鼻下点",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "Camper's line, Ala-tragus line",
+    "meaning": "鼻翼耳屏线",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "jaw-closing reflex",
+    "meaning": "闭颌反射",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "marginal ridge",
+    "meaning": "边缘峙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "border movement",
+    "meaning": "边缘运动",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mimetic muscles",
+    "meaning": "表情肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "compensating curve",
+    "meaning": "补偿曲线",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "quadrant coding method",
+    "meaning": "部位记录法",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lateral movement",
+    "meaning": "侧方运动",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lateral accessory canal",
+    "meaning": "侧副管",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lateral accessory foramen",
+    "meaning": "侧副孔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "vertical chain",
+    "meaning": "垂直肌链",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "vertical dimension",
+    "meaning": "垂直距离",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lips",
+    "meaning": "唇",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "vermilion",
+    "meaning": "唇红",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "vermilion border",
+    "meaning": "唇红缘",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "labial surface",
+    "meaning": "唇面",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "labiofacial sulcus",
+    "meaning": "唇面沟",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "frenum of upper and lower lip",
+    "meaning": "唇系带",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "labial gland",
+    "meaning": "唇腺",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "malocclusion",
+    "meaning": "错祫",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "major salivary gland",
+    "meaning": "大唾液腺",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "emissary veins",
+    "meaning": "导血管",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "stapedial nerve",
+    "meaning": "橙骨肌神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "point angle",
+    "meaning": "点角",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pit",
+    "meaning": "点隙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "sphenopalatine artery",
+    "meaning": "蝶腮动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "sphenoid bone",
+    "meaning": "蝶骨",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "sphenomandibular ligament",
+    "meaning": "蝶下颌韧带",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "dynamic wrinkles",
+    "meaning": "动力性皱纹线",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "edge to edge bite",
+    "meaning": "对刃拾",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "frontal process",
+    "meaning": "额蝶突",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "frontal wrinkles",
+    "meaning": "额纹",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "palate",
+    "meaning": "腮",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "palatine tonsils",
+    "meaning": "腮扁桃体",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "uvula",
+    "meaning": "聘垂",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "musculus uvulae",
+    "meaning": "聘垂肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "greater palatine foramen",
+    "meaning": "腮大孔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "levator veli palatini",
+    "meaning": "腾帆提肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "tensor veli palatini",
+    "meaning": "腮帆张肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "palatine bones",
+    "meaning": "腮骨",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "descending palatine artery",
+    "meaning": "腮降动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "palatal surface",
+    "meaning": "腮面",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "anterior palatine nerve",
+    "meaning": "聘前神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "palatoglossal arch",
+    "meaning": "腮舌弓",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "palatoglossus",
+    "meaning": "腮舌肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "palatine nerve",
+    "meaning": "腮神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "ascending palatine artery",
+    "meaning": "腮升动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "palatine process",
+    "meaning": "腾突腮",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "palatine gland",
+    "meaning": "腺",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "palatopharyngeal arch",
+    "meaning": "聘腮咽弓",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "palatopharyngeus",
+    "meaning": "咽肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "midpalatal suture",
+    "meaning": "聘中缝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "greater auricular ·nerve",
+    "meaning": "大神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "posterior auricular artery",
+    "meaning": "耳后动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "retroauricular lymph nodes",
+    "meaning": "耳后淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "auriculotemporal nerve",
+    "meaning": "耳颖神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "tragus",
+    "meaning": "耳屏",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "digastric",
+    "meaning": "二腹肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "digastric fossa",
+    "meaning": "二腹肌窝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pronunciation",
+    "meaning": "发音",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "developmental groove",
+    "meaning": "沟",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "cross bite",
+    "meaning": "口",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "accessory root canal",
+    "meaning": "副根管",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "supplemental groove",
+    "meaning": "副沟",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "accessory part of parotid gland",
+    "meaning": "恩腺",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "accessory nerve",
+    "meaning": "了』",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "companion lymph nodes of accessory nerve",
+    "meaning": "副神经淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "calcification",
+    "meaning": "化期",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "sensation",
+    "meaning": "感觉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "sensation threshold",
+    "meaning": "觉阙值",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "sensory receptor",
+    "meaning": "受器",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "phrenic nerve",
+    "meaning": "神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "root trunk of tooth",
+    "meaning": "根干",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "root canal",
+    "meaning": "支",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lateral canal",
+    "meaning": "侧支",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "root canal orifice",
+    "meaning": "管口",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "root canal system",
+    "meaning": "根管系统",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "apical furcation",
+    "meaning": "根尖分叉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "apical ramification",
+    "meaning": "根尖分歧",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "apical foramen",
+    "meaning": "根尖孔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "groove",
+    "meaning": "沟",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "oral cavity proper",
+    "meaning": "归固有口腔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "articular eminence",
+    "meaning": "关节结节",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "articular capsule",
+    "meaning": "关节囊盘",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "articular disc",
+    "meaning": "关节",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "articular fossa",
+    "meaning": "关节窝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "intercanal anastomoses",
+    "meaning": "管间吻合",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "Federation Dentaire International system, FDI I",
+    "meaning": "国际牙科联合会系统",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "occlusion",
+    "meaning": "祫",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "vertical dimension of occlusion, VDO",
+    "meaning": "祫垂直距离",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "biting force or bite force",
+    "meaning": "祫力",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "occlusal surface",
+    "meaning": "祫面",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "occlusal plane",
+    "meaning": "拾平面",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular position",
+    "meaning": "颌位",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "permanent teeth",
+    "meaning": "恒牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "permanent dentition",
+    "meaning": "恒牙列",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "transverse ridge",
+    "meaning": "横暗",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "recurrent laryngeal nerve",
+    "meaning": "喉返神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "retruded contact occlusion, RCO",
+    "meaning": "后退接触拾",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "retruded contact position, RCP",
+    "meaning": "后退接触位",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "retruding movement",
+    "meaning": "后退运动",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "posterior teeth",
+    "meaning": "后牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "supratrochlear artery",
+    "meaning": "滑车上动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "cricoid cartilage",
+    "meaning": "环状软骨",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "coracoid process",
+    "meaning": "喙突",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mixed dentition",
+    "meaning": "混合牙列",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "electromyogram, EMG",
+    "meaning": "肌电图",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "abnormal central cusp",
+    "meaning": "畸形中央尖",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "foramen spinosum",
+    "meaning": "棘孔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "ridge",
+    "meaning": "峙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "cheeks",
+    "meaning": "颊",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "buccinator",
+    "meaning": "颊肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "buccal space",
+    "meaning": "颊间隙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "buccal surface",
+    "meaning": "颊面",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "buccal nerve",
+    "meaning": "颊神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "buccal frenum",
+    "meaning": "颊系带",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "buccal gland",
+    "meaning": "颊腺",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "buccal branches",
+    "meaning": "颊支",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "buccal fat pad",
+    "meaning": "颊脂垫",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "thyrocervical trunk",
+    "meaning": "甲状颈干",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "thyroid cartilage",
+    "meaning": "甲状软骨",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "thyrohyoid",
+    "meaning": "甲状舌骨肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "superior th yr oid artery",
+    "meaning": "甲状腺上动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "inferior thyroid artery",
+    "meaning": "甲状腺下动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "canme",
+    "meaning": "尖牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "cuspid protected occlusion",
+    "meaning": "尖牙保护拾",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "canine fossa",
+    "meaning": "尖牙窝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "canine buttress",
+    "meaning": "支柱",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "omohyoid",
+    "meaning": "肩加舌骨肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "palpebral fissure",
+    "meaning": "脸裂",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "depressor anguli oris",
+    "meaning": "口角肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "depressor labii inferioris",
+    "meaning": "降唇肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "hinge movement",
+    "meaning": "降咖卞运动",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "contact area",
+    "meaning": "接触区",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "tubercle",
+    "meaning": "纤干廿了",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "anatomical root",
+    "meaning": "根",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "anatomical crown",
+    "meaning": "言牙冠",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mesiobuccal development groove",
+    "meaning": "近颊沟",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mesiobuccal triangular development groove",
+    "meaning": "近颊三角沟",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mesial marginal groove",
+    "meaning": "近中沟",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mesial triangular fossa",
+    "meaning": "近中三角窝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "stylomastoid foramen",
+    "meaning": "茎乳孔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "styloid process",
+    "meaning": "圣突",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "stylohyoid",
+    "meaning": "委突舌骨肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "styloglossus",
+    "meaning": "翠突舌肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "stylomandibular ligament",
+    "meaning": "茎突下颌韧带",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "styloph ary ngeus",
+    "meaning": "茎突咽肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "carotid sinus",
+    "meaning": "脉窦",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "carotid sinus branch",
+    "meaning": "脉窦支",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "carotid sheath",
+    "meaning": "颈动脉鞘",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "carotid body",
+    "meaning": "颈动脉体",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "jugularo-digastric lymph nodes",
+    "meaning": "颈二腹肌淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "transverse cervical artery",
+    "meaning": "颈横动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "cervical ridge",
+    "meaning": "颈睹",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "jugularo-omohyoid lymph nodes",
+    "meaning": "颈肩脾舌骨肌淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "cervical sympathetic trunk",
+    "meaning": "颈交感干",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "jugular foramen",
+    "meaning": "颈静脉孔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "platysma",
+    "meaning": "颈阔肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "jugularar lymph trunk",
+    "meaning": "叩淋巴干",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "internal carotid artery",
+    "meaning": "内动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "internal jugularar vein",
+    "meaning": "内静脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "jugularodigastric lymph nodes",
+    "meaning": "颈内静脉二腹肌淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "jugularoomohyoid lymph node",
+    "meaning": "颈内静脉肩舌脾骨肌淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "anterior jugularar vein",
+    "meaning": "静脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "superficial anterior cervical lymph nodes",
+    "meaning": "颈前浅淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "superficial cervical fascia",
+    "meaning": "颈浅筋膜",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "superficial cervical lymph nodes",
+    "meaning": "颈浅淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "deep cervical fascia",
+    "meaning": "颈深筋膜",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "deep cervical lymph nodes",
+    "meaning": "颈深淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "superior deep cervical lymph nodes",
+    "meaning": "颈深上淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "inferior deep cervical lymph nodes",
+    "meaning": "颈深下淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "external carotid artery",
+    "meaning": "颈外动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "external jugularar vein",
+    "meaning": "颈外静脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "cervical line",
+    "meaning": "颈缘或颈线",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "cervical branch",
+    "meaning": "颈支",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "common carotid artery",
+    "meaning": "颈总动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "masticatory movement",
+    "meaning": "咀嚼活动",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "masticatory muscle",
+    "meaning": "咀嚼肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "masticatory muscle force",
+    "meaning": "咀嚼肌力",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "masticatory efficiency",
+    "meaning": "咀嚼效率",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "chewing cycle",
+    "meaning": "咀嚼周期",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "fungiform papillae",
+    "meaning": "菌状乳头",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "open bite",
+    "meaning": "开拾",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "jaw.:.opening reflex",
+    "meaning": "开颌反射",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mentolabial sulcus",
+    "meaning": "颊唇沟",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mental artery",
+    "meaning": "颊动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mentalis",
+    "meaning": "颊肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mental tubercles",
+    "meaning": "颊结节",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mentocervical angle",
+    "meaning": "颊颈角",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mental foramen",
+    "meaning": "颊孔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pogonion",
+    "meaning": "颊前点",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "supramental",
+    "meaning": "颊上点",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "geniohyoid",
+    "meaning": "颊舌骨肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "genioglossus",
+    "meaning": "颊舌肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mental nerve",
+    "meaning": "颊神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "menton",
+    "meaning": "颊下点",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "submental artery",
+    "meaning": "颊下动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "submental space",
+    "meaning": "颊下间隙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "submental lymph nodes",
+    "meaning": "颊下淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular condyle, condylar process",
+    "meaning": "棵突",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "condyle neck",
+    "meaning": "棵突颈部",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "stomatognathic system muscular chain",
+    "meaning": "口颌系统肌链",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mouth breathing",
+    "meaning": "口呼吸",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "angle of mouth",
+    "meaning": "口角",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "oral fissure",
+    "meaning": "口裂",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "orbiculars oris",
+    "meaning": "口轮匝肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "oral cavity",
+    "meaning": "口腔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "oral vestibule",
+    "meaning": "口腔前庭",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "Frankfort Horizontal plane",
+    "meaning": "眶耳平面",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "supraorbital artery",
+    "meaning": "眶上动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "supraorbital fissure, superior orbital fissure",
+    "meaning": "眶上裂",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "infraorbital artery",
+    "meaning": "眶下动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "infraorbital groove",
+    "meaning": "眶下沟",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "infraorbital canal",
+    "meaning": "眶下管",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "infraorbital space",
+    "meaning": "眶下间隙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "infraorbital foramen",
+    "meaning": "眶下孔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "infraorbital nerve",
+    "meaning": "眶神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "costocervical trunk",
+    "meaning": "肋颈干",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "proximal surface",
+    "meaning": "面",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "clinical root",
+    "meaning": "归牙根",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "clinical crown",
+    "meaning": "临牙冠",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "squama of temporal hone",
+    "meaning": "叩",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "posterior cranial fossa",
+    "meaning": "叩颅后窝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "anterior cranial fossa",
+    "meaning": "颅前窝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "middle cranial fossa",
+    "meaning": "颅中窝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "foramen ovale",
+    "meaning": "卵圆孔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "vallate papillae",
+    "meaning": "轮廓乳头",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "glabella",
+    "meaning": "眉间点",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "glabellar wrinkles",
+    "meaning": "眉间纹",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "eruption",
+    "meaning": "萌出期",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "vagus nerve",
+    "meaning": "迷走神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "facial expression",
+    "meaning": "面部表情",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "facial artery",
+    "meaning": "面动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "transverse facial artery",
+    "meaning": "面横动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "facial vein",
+    "meaning": "面静脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "facial lymph nodes",
+    "meaning": "面淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "facial nerve",
+    "meaning": "面神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "common facial vein",
+    "meaning": "面总静脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "value",
+    "meaning": "归",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "attrition",
+    "meaning": "磨耗",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "abrasion",
+    "meaning": "磨损",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "molar",
+    "meaning": "磨牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "retromolar pad",
+    "meaning": "磨牙后垫",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "retromolar triangle",
+    "meaning": "牙后三角",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "retromolar gland",
+    "meaning": "牙后腺",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "middle meningeal artery",
+    "meaning": "脑膜中动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "internal acoustic pore",
+    "meaning": "内耳门",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "internal oblique line",
+    "meaning": "内斜线",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "medial angle of eye",
+    "meaning": "内毗",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "angular artery",
+    "meaning": "内眺动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "temporoparietalis",
+    "meaning": "颐顶肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "temporal bone",
+    "meaning": "颖骨",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "articular surfaces of temporal bone",
+    "meaning": "颐骨关节面",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "temporalis",
+    "meaning": "颇肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "temporal space",
+    "meaning": "颖间隙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "superficial temporal artery",
+    "meaning": "颇浅动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "superficial temporal vein",
+    "meaning": "颇浅静脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "deep temporal nerves",
+    "meaning": "颇深神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "temporal fossa",
+    "meaning": "颐窝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "temporomandibular joint, TMJ",
+    "meaning": "颖下颌关节",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "glenoid fossa",
+    "meaning": "颇下颌关节窝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "temporomandibular ligament",
+    "meaning": "颇下颌韧带",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "infratemporal space",
+    "meaning": "颖下间隙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "infratemporal surface",
+    "meaning": "颇下面",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "temporal branches",
+    "meaning": "颇支",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "vomit",
+    "meaning": "呕吐",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "disc-condyle joint",
+    "meaning": "盘－棵关节",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "disc-temporal joint",
+    "meaning": "盘－颖关节",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "foramen lacerum",
+    "meaning": "破裂孔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "stretch reflex",
+    "meaning": "牵张反射",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "anterior nasal spine",
+    "meaning": "前鼻棘",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "premolar",
+    "meaning": "前磨牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "sentinel nodes",
+    "meaning": "前哨淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "protrusive movement",
+    "meaning": "前伸运动",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "vestibular fold",
+    "meaning": "前庭襞",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "anterior teeth",
+    "meaning": "前牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "incisal path",
+    "meaning": "切道",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "inclination of incisal path",
+    "meaning": "切道斜度",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "incisal ridge",
+    "meaning": "切蜡",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "incisor",
+    "meaning": "切牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "incisor liability",
+    "meaning": "切牙补偿",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "incisive canal",
+    "meaning": "切牙管",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "incisive foramen",
+    "meaning": "切牙孔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "incisive papilla",
+    "meaning": "切牙乳头",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "incisive fossa",
+    "meaning": "切牙窝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mamelon",
+    "meaning": "切缘结节",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "regional lymph nodes",
+    "meaning": "区域淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "zygomaticus major",
+    "meaning": "额大肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "zygomatic arch",
+    "meaning": "颤弓",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "zygomatic bones",
+    "meaning": "额骨",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "zygomaticofacial foramen",
+    "meaning": "颤面孔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "zygomaticotemporal suture",
+    "meaning": "额颓缝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "zygomatic nerve",
+    "meaning": "颤神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "zygomatic process",
+    "meaning": "额突",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "zygomatic buttress",
+    "meaning": "颤突支柱",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "zygomaticus minor",
+    "meaning": "额小肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "zygomatico-alveolar ridge",
+    "meaning": "颤牙槽暗",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "zygomatic branches",
+    "meaning": "额支",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "philtrum",
+    "meaning": "人中",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "philtrum crest",
+    "meaning": "人中睹",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "opalescence, OP",
+    "meaning": "乳光性",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "deciduous canine",
+    "meaning": "乳尖牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "deciduous molar",
+    "meaning": "乳磨牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "deciduous incisor",
+    "meaning": "乳切牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mastoid process",
+    "meaning": "乳突",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pulp cavity of deciduous teeth",
+    "meaning": "乳牙髓腔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "soft palate",
+    "meaning": "归",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "parotid gland",
+    "meaning": "腮腺",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "parotid duct",
+    "meaning": "腮腺管",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "papilla of parotid duct",
+    "meaning": "腮腺管乳头",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "parotid space",
+    "meaning": "腮腺间隙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "parotid lymph nodes",
+    "meaning": "腮腺淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "superficial parotid lymph nodes",
+    "meaning": "腮腺浅淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "parotid capsule",
+    "meaning": "腮腺鞘",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "deep parotid lymph nodes",
+    "meaning": "愿腺深淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "parotideomasseteric fascia",
+    "meaning": "腮腺咬肌筋膜",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "trigeminal nerve",
+    "meaning": "＝叉神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "trigeminal ganglion",
+    "meaning": "三叉神经节",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "trigeminal impression",
+    "meaning": "三叉神经压迹",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "triangular ridge",
+    "meaning": "丁＝一角峙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "chromaticity, CH",
+    "meaning": "色度",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "superior labial artery",
+    "meaning": "动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary lateral incisor",
+    "meaning": "上颌侧切牙唇",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary second molar",
+    "meaning": "颌颌第二磨牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary second premolar",
+    "meaning": "贱第二前磨牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary second deciduous molar",
+    "meaning": "颌上第二乳磨牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary third molar",
+    "meaning": "上颌第三磨牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary first molar",
+    "meaning": "上颌第一磨牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary first premolar",
+    "meaning": "上颌第一前磨牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary first deciduous molar",
+    "meaning": "颌上第一乳磨牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary artery",
+    "meaning": "上颌动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary sinus",
+    "meaning": "上颌窦",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillarya",
+    "meaning": "颌上骨",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary canine",
+    "meaning": "上颌尖牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary tuberosity",
+    "meaning": "颌上结节",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary vein",
+    "meaning": "上颌静脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary deciduous lateral incisor",
+    "meaning": "上颌乳侧切牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary deciduous canine",
+    "meaning": "上颌乳尖牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary deciduous central incisor",
+    "meaning": "上颌乳中切牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary nerve",
+    "meaning": "上颌神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary body",
+    "meaning": "上颌体",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary central incisor",
+    "meaning": "上颌中切牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "upper genial tubercles",
+    "meaning": "上颊棘",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "posterior superior alveolar artery",
+    "meaning": "上牙槽后动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "posterior superior alveolar nerve",
+    "meaning": "上牙槽后神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "anterior superior alveolar nerve",
+    "meaning": "上牙槽前神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "middle superior alveolar nerve",
+    "meaning": "上牙槽中神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "tongue",
+    "meaning": "舌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lingual artery",
+    "meaning": "舌动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "hyoid bone",
+    "meaning": "舌骨",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "suprahyoid muscles",
+    "meaning": "舌骨上肌群",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "hyoglossus",
+    "meaning": "舌骨舌肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "infrahyoid muscles",
+    "meaning": "舌骨下肌群",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "linguales",
+    "meaning": "舌肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "cingulum",
+    "meaning": "舌隆突",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lingual surface",
+    "meaning": "舌面",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "intrinsic muscles",
+    "meaning": "舌内肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "deep lingual artery",
+    "meaning": "舌深动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lingual nerve",
+    "meaning": "舌神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "extrinsic muscles",
+    "meaning": "舌外肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "sublingual fold",
+    "meaning": "舌下襞",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "sublingual artery",
+    "meaning": "舌下动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "sublingual space",
+    "meaning": "舌下间隙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "sublingual region",
+    "meaning": "舌下区",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "sublingual caruncle",
+    "meaning": "舌下肉阜",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "hypoglossal nerve",
+    "meaning": "舌下神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "hypoglossal canal",
+    "meaning": "舌下神经管",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "sublingual gland",
+    "meaning": "舌下腺",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "Bartholin duct",
+    "meaning": "舌下腺大管",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "sublingual fossa",
+    "meaning": "舌下腺窝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lingual gland",
+    "meaning": "舌腺",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "glossopharyngeal nerve",
+    "meaning": "舌咽神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "deep bite",
+    "meaning": "深覆拾",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "deep overjet",
+    "meaning": "深覆盖",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "nervous reflex",
+    "meaning": "神经反射",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "development",
+    "meaning": "生长期",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lobe",
+    "meaning": "生长叶",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "vocal cords",
+    "meaning": "声带",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "optic canal",
+    "meaning": "视神经管",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "bilateral balanced occlusion",
+    "meaning": "双侧平衡拾",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "horizontal jaw reflexes",
+    "meaning": "水平颌反射",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "horizontal chain",
+    "meaning": "水平肌链",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "sucking",
+    "meaning": "吮吸",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "filiform papillae",
+    "meaning": "丝状乳头",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pulp horn",
+    "meaning": "髓角",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pulp cavity",
+    "meaning": "髓腔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pulp chamber",
+    "meaning": "髓室",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "wall of pulp chamber",
+    "meaning": "髓室壁",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "floor of pulp chamber",
+    "meaning": "髓室底",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "roof of pulp chamber",
+    "meaning": "髓室顶",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "superior clavicular lymph nodes",
+    "meaning": "锁骨上淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "subclavian artery",
+    "meaning": "锁骨下动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "subclavian vein",
+    "meaning": "锁骨下静脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "levator anguli oris",
+    "meaning": "提口角肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "levator labii superioris alaeque nasi",
+    "meaning": "提上唇鼻翼肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "levator labii superioris",
+    "meaning": "提上唇肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "universal numbering system",
+    "meaning": "通用编号系统",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "scalp",
+    "meaning": "头皮",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "deglutition, swallowing",
+    "meaning": "吞咽",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "saliva",
+    "meaning": "唾液",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "external oblique line",
+    "meaning": "外斜线",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "height of contour",
+    "meaning": "外形高点",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "embrasures",
+    "meaning": "外展隙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lateral angle of eye",
+    "meaning": "外眺",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "Frey's Syndrome",
+    "meaning": "味觉出汗综合征",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "taste threshold",
+    "meaning": "味觉阙值",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "fossa",
+    "meaning": "窝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "freeway space",
+    "meaning": "息止祫间隙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "geniculate ganglion",
+    "meaning": "膝神经节",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "inferior labial artery",
+    "meaning": "下唇动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular lateral incisor",
+    "meaning": "下颌侧切牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular second molar",
+    "meaning": "下颌第二磨牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular second deciduous molar",
+    "meaning": "下颌第二乳磨牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular third molar",
+    "meaning": "下颌第三磨牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular first molar",
+    "meaning": "下颌第一磨牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular first premolar",
+    "meaning": "下颌第一前磨牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular first deciduous molar",
+    "meaning": "下颌第一乳磨牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "jaw reflex",
+    "meaning": "下颌反射",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandible",
+    "meaning": "下颌骨",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular canal",
+    "meaning": "下颌管",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "retromandibular vein",
+    "meaning": "下颌后静脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular canine",
+    "meaning": "下颌尖牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular angle",
+    "meaning": "下颌角",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular foramen",
+    "meaning": "下颌孔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular deciduous lateral incisor",
+    "meaning": "下颌乳侧切牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular deciduous canine",
+    "meaning": "下颌乳尖牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular deciduous central incisor",
+    "meaning": "下颌乳中切牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mylohyoid groove",
+    "meaning": "下颌舌骨沟",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mylohyoid",
+    "meaning": "下颌舌骨肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mylohyoid nerve",
+    "meaning": "下颌舌骨肌神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mylohyoid line",
+    "meaning": "下颌舌骨线",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular nerve",
+    "meaning": "下颌神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular body",
+    "meaning": "下颌体",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular fossa",
+    "meaning": "下颌窝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "submandibular space",
+    "meaning": "下颌下间隙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "submandibular lymph nodes",
+    "meaning": "下颌下淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "Submandibular gland",
+    "meaning": "下颌下腺",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "duct of submandibular gland, Wharton duct, submandibular duct",
+    "meaning": "下颌下腺管",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "capsule of submandibular gland",
+    "meaning": "下颌下腺鞘",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "submandibular fossa",
+    "meaning": "下颌下腺窝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular lingula",
+    "meaning": "下颌小舌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "jaw-unloading reflex",
+    "meaning": "下颌卸载反射",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular notch",
+    "meaning": "下颌乙状切迹",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "marginal mandibular branch or branches",
+    "meaning": "下颌缘支",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular ramus",
+    "meaning": "下颌支",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular central incisor",
+    "meaning": "下颌中切牙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular postural position, MPP",
+    "meaning": "下颌姿势位",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lower genial tubercles",
+    "meaning": "下颊棘",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "inferior alveolar artery",
+    "meaning": "下牙槽动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "inferior alveolar nerve",
+    "meaning": "下牙槽神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "line angle",
+    "meaning": "线角",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "minor salivary gland",
+    "meaning": "小唾液腺",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "risorius",
+    "meaning": "笑肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "oblique ridge",
+    "meaning": "斜峭",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "transverse groove of the oblique ridge",
+    "meaning": "斜峙横沟",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "inclined surface",
+    "meaning": "斜面",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "thoracic duct",
+    "meaning": "胸导管",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "stemoth yr oid",
+    "meaning": "胸骨甲状肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "sternohyoid",
+    "meaning": "胸骨舌骨肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "sternocleidomastoid",
+    "meaning": "胸锁乳突肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "rest position",
+    "meaning": "休息位",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "dentin",
+    "meaning": "牙本质",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "alveolar ridge",
+    "meaning": "牙槽峙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "interdental septa",
+    "meaning": "牙槽间隔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "alveolar process",
+    "meaning": "牙槽突",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "alveoli or tooth sockets",
+    "meaning": "牙槽窝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "dental root",
+    "meaning": "牙根",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "interradicular septa",
+    "meaning": "牙根间隔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "dental arch",
+    "meaning": "牙弓",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "cementum",
+    "meaning": "牙骨质",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "dental crown",
+    "meaning": "牙冠",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "dental cusp",
+    "meaning": "牙尖",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "cusp ridge",
+    "meaning": "牙尖峙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "intercuspal occlusion, ICO",
+    "meaning": "牙尖交错拾",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "intercuspal position, ICP",
+    "meaning": "牙尖交错位",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "dental cervix",
+    "meaning": "牙颈",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "dentition",
+    "meaning": "牙列",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "dental pulp",
+    "meaning": "牙髓",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "division into thirds",
+    "meaning": "牙体三等分",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "long axis",
+    "meaning": "牙体长轴",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "tooth position",
+    "meaning": "牙位",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "gums",
+    "meaning": "牙跟",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "enamel",
+    "meaning": "牙釉质",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "periodontal potential",
+    "meaning": "牙周潜力",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "salpingoph ary ngeus",
+    "meaning": "咽鼓管咽肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "retroph ary ngeal space",
+    "meaning": "咽后间隙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "fauces",
+    "meaning": "咽门",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "paraph ary ngeal space",
+    "meaning": "咽旁间隙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "superior constrictor of ph arynx",
+    "meaning": "咽上缩肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "ascending pharyngeal artery",
+    "meaning": "咽升动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "inferior constrictor of pharynx",
+    "meaning": "咽下缩肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "middle constrictor of ph ary nx",
+    "meaning": "咽中缩肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "speech",
+    "meaning": "兰五口口",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "greater petrosal nerve",
+    "meaning": "岩大神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "ophthalmic vein",
+    "meaning": "眼静脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "orbicularis oculi",
+    "meaning": "眼轮匝肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "ophthalmic nerve",
+    "meaning": "眼神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "articulation",
+    "meaning": "咬合",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "bite force",
+    "meaning": "咬合力",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "masseter",
+    "meaning": "咬肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "masseteric space",
+    "meaning": "咬肌间隙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "masseteric nerve",
+    "meaning": "咬肌神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "foliate papillae",
+    "meaning": "叶状乳头",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pterygoid plexus",
+    "meaning": "翼丛",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pterion",
+    "meaning": "翼点",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pterygopalatine canal",
+    "meaning": "翼腮管",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pterygopalatine nerve",
+    "meaning": "冀聘神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pterygoid hamulus",
+    "meaning": "翼钩",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pterygoid venous plexus",
+    "meaning": "翼静脉丛",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "medial pterygoid",
+    "meaning": "翼内肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "medial pterygoid nerve",
+    "meaning": "翼内肌神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pterygoid process",
+    "meaning": "翼突",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pterygomaxillary suture",
+    "meaning": "翼突上颌缝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pterygoid buttress",
+    "meaning": "翼突支柱",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lateral pterygoid",
+    "meaning": "翼外肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lateral pterygoid nerve",
+    "meaning": "翼外肌神经",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pterygomandibular space",
+    "meaning": "翼下颌间隙",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pterygomandibular ligament",
+    "meaning": "翼下颌韧带",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pterygomandibular fold",
+    "meaning": "翼下颌皱襞",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "fluorescence, FL",
+    "meaning": "荧光性",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "hard palate",
+    "meaning": "硬腾",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "right lymph duct",
+    "meaning": "右淋巴导管",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "cementoenamel junction",
+    "meaning": "釉牙骨质界",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "foramen rotundum",
+    "meaning": "圆孔",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "distobuccal development groove",
+    "meaning": "远颊沟",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "distobuccal triangular development groove",
+    "meaning": "远颊三角沟",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "distal triangular fossa",
+    "meaning": "远中三角窝",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "long centric",
+    "meaning": "长正中",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "occipital artery",
+    "meaning": "枕动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "occipitofrontalis",
+    "meaning": "枕额肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "occipital lymph nodes",
+    "meaning": "枕淋巴结",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "centric occlusion, CO",
+    "meaning": "正中祫",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "centric occlusion position, COP",
+    "meaning": "正中矜位",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "centric relation, CR",
+    "meaning": "正中关系",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "centric relation occlusion, CRO",
+    "meaning": "正中关系祫",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "centric relation position, CRP",
+    "meaning": "正中关系位",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "median line",
+    "meaning": "中线",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "central cusp",
+    "meaning": "中央尖",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "gravitation wrinkles",
+    "meaning": "重力性皱纹线",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "axial ridge",
+    "meaning": "轴睹",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "corrugator supercilii",
+    "meaning": "皱眉肌",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "vertebral artery",
+    "meaning": "椎动脉",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "prevertebral fascia",
+    "meaning": "椎前筋膜",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "postural chain",
+    "meaning": "姿态肌链",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "group functional occlusion",
+    "meaning": "组牙功能梒",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maximal biting force",
+    "meaning": "最大矜力",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maximal intercuspal position, MIP",
+    "meaning": "最大牙尖交错位",
+    "subject": "口解生",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "saddle",
+    "meaning": "基",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "chamfer edge",
+    "meaning": "槽边缘",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "semi-rigid bridge",
+    "meaning": "自固定桥",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "half crown",
+    "meaning": "佯冠",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "semi-anatomic teeth, semi-anatomical teeth",
+    "meaning": "自解剖式牙",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "semi-precision attachment",
+    "meaning": "佯精密附着体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "rnvestment",
+    "meaning": "凸埋",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lining mucosa",
+    "meaning": "覆黏膜",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "shade selection",
+    "meaning": "色",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "border seal area",
+    "meaning": "缘封闭区",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "surface treatment",
+    "meaning": "面处理",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "prominence of compensating curve",
+    "meaning": "偿曲线曲度",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "partial crown",
+    "meaning": "部分冠",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lateral palatal bar",
+    "meaning": "�脖杆",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "inclination of lateral condylar guidance",
+    "meaning": "方棵导斜度",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "vibrating line",
+    "meaning": "动线",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "long arm clasp",
+    "meaning": "臂卡环",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "long centric",
+    "meaning": "正中",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "superhard stone",
+    "meaning": "硬石膏",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "insertion",
+    "meaning": "戴",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "labial frenum",
+    "meaning": "唇系带",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "ceramic veneer",
+    "meaning": "瓷贴面",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "magnetic attachment",
+    "meaning": "磁性附着体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "major connector",
+    "meaning": "大连接体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "preliminary finishing",
+    "meaning": "戴前处理",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "one arm clasp",
+    "meaning": "粕臂卡环",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "cantilever fixed bridge",
+    "meaning": "单端固定桥",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "single complete denture",
+    "meaning": "单颌全口义齿",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "guide plane",
+    "meaning": "导平面",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "undercut area",
+    "meaning": "倒凹区",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "reverse hook clasp",
+    "meaning": "倒钩卡环",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "primer",
+    "meaning": "底胶",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "smear layer",
+    "meaning": "沽污层",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "inclination of plane of orientation",
+    "meaning": "定位平面斜度",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "half and half clasp",
+    "meaning": "对半卡环",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "palatal plate",
+    "meaning": "腾板",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "palatal bar",
+    "meaning": "腾杆",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "palatal vault",
+    "meaning": "腾穹隆",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "palatine fovea",
+    "meaning": "腾小凹",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "palatal rugae",
+    "meaning": "腾皱",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "ear defect",
+    "meaning": "耳缺损",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "reverse back action clasp",
+    "meaning": "反回力卡环",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "non-undercut area",
+    "meaning": "非倒凹区",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "non working interference",
+    "meaning": "非工作侧祫干扰",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "non-anatomical occlusion",
+    "meaning": "非解剖式拾",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "non-anatomic teeth, non-anatomical teeth",
+    "meaning": "非解剖式牙",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "nonmetal crown",
+    "meaning": "非金属全冠",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "closed tray implant impression",
+    "meaning": "非开窗式（闭口式）印模技术",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "eccentric balanced occlusion",
+    "meaning": "非正中平衡拾",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "epulis fissuratum",
+    "meaning": "缝跟瘤",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "calcium fluoroaluminosilicate glass",
+    "meaning": "氮化铝硅钙玻璃",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "compound fixed bridge",
+    "meaning": "复合固定桥",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "secondary stress-bearing area",
+    "meaning": "副承托区",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "overdenture",
+    "meaning": "覆盖义齿",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "bar clasp",
+    "meaning": "杆形卡环",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "onlay",
+    "meaning": "高嵌体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "custom tray",
+    "meaning": "个别托盘",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "digital design for individual implant abutment",
+    "meaning": "个性化基台数字化设计",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "root attachment",
+    "meaning": "根面附着体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "master model or cast model",
+    "meaning": "工作模型",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "functional cusp bevel",
+    "meaning": "功能尖斜面",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "functional impression",
+    "meaning": "功能性印模",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "osseointergration",
+    "meaning": "骨结合",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "fixed partial denture",
+    "meaning": "固定局部义齿",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "fixation screw",
+    "meaning": "固定螺丝",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "fixed bridge",
+    "meaning": "固定桥",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "fixed permanent splint",
+    "meaning": "固定式恒久夹板",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "implant supported fixed partial denture",
+    "meaning": "固定式种植义齿",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "retention",
+    "meaning": "固位",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "retentive undercuts",
+    "meaning": "固位倒凹",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "retainer",
+    "meaning": "固位体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "surveying line",
+    "meaning": "观测线",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "crown",
+    "meaning": "冠",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "intracoronal retainer",
+    "meaning": "冠内固位体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "extracoronal attachment",
+    "meaning": "冠外附着体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "extracoronal retainer",
+    "meaning": "冠外固位体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "median sagittal index",
+    "meaning": "硅橡胶导模",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "core",
+    "meaning": "核",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "defect of maxillarya and mandible",
+    "meaning": "颌骨缺损",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "interarch distance",
+    "meaning": "颌严间距离",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillaryofacial prosthetics",
+    "meaning": "面膺复学",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillomandibular relationship",
+    "meaning": "颌位关系",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "permanent splint",
+    "meaning": "恒久性夹板",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "posterior palatal bar",
+    "meaning": "后腮杆",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "retruded contact position, RCP",
+    "meaning": "后退接触位",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "ring clasp",
+    "meaning": "环形卡环",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "relief area",
+    "meaning": "缓冲区",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "back-action clasp",
+    "meaning": "回力卡环",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "compound full crown",
+    "meaning": "混合全冠",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "tooth-and mucosa-supported dentures",
+    "meaning": "混合支持式义齿",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "bite-fork",
+    "meaning": "拾叉",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "occlusal interference",
+    "meaning": "祫干扰",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "occlusal overabrasion",
+    "meaning": "拾过度磨耗",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "articulator",
+    "meaning": "拾架",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "interocclusal therapy",
+    "meaning": "间矫治",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "occlusal reduction",
+    "meaning": "面磨除",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "occlusal plane guide",
+    "meaning": "缸胎平面板",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "occlusal scheme, occlusal pattern",
+    "meaning": "严型",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "occlusal rest",
+    "meaning": "除支托",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mechanic attachment",
+    "meaning": "机械式附着体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "muscular contact position, MCP",
+    "meaning": "肌肉接触位",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "abutment",
+    "meaning": "基台",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "base plate",
+    "meaning": "基托",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "abutment",
+    "meaning": "基牙",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "immediate complete denture",
+    "meaning": "即刻全口义齿",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "computer aided design and computer aided manufacturing",
+    "meaning": "计算机辅助设计机辅助制作",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "CAD/CAM",
+    "meaning": "颊棚",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "buccal shelf",
+    "meaning": "棚",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "buccal and lingual reduction",
+    "meaning": "颊舌面的磨除",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "buccal frenum",
+    "meaning": "系带",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "indirect retainer",
+    "meaning": "接固位体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "indirect veneer technique",
+    "meaning": "接贴面修复技术",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "shoulder edge",
+    "meaning": "台边缘",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "progress loading",
+    "meaning": "进性骨受载",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "all-acrylic removable partial dentures",
+    "meaning": "式可摘",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "anatomical occlusion",
+    "meaning": "剖式祫",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "anatomic teeth, anatomical teeth",
+    "meaning": "剖式牙",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "anatomic impression",
+    "meaning": "解剖式印模",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "porcelain-metal junction",
+    "meaning": "金瓷结合部",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mechanism of metal-porcelain bonding",
+    "meaning": "金瓷结合机制",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "coefficient of thermal expansion, CTE",
+    "meaning": "金属－瓷材料的热膨胀系数",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "full metal crown",
+    "meaning": "金属全冠",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "removable partial dentures with a cast metal framework",
+    "meaning": "金属铸造支架式可摘局部义齿",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "precision attachment",
+    "meaning": "精密附着体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "static impression",
+    "meaning": "静态印模",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "seating",
+    "meaning": "就位",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "path of insertion",
+    "meaning": "就位道",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "masticatory mucosa",
+    "meaning": "咀嚼黏膜",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "polycarboxylate cement",
+    "meaning": "聚骏酸锌水门汀",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "clasp arm",
+    "meaning": "卡环臂",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "elasticity of clasp",
+    "meaning": "卡环的弹性",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "clasp shoulder",
+    "meaning": "卡环肩",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "clasp retainer",
+    "meaning": "卡环型固位体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "open tray implant impression",
+    "meaning": "开窗式印模技术",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "porcelain-fused-to-metal, PFM",
+    "meaning": "烤瓷熔附金属",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "PFM fixed bridge",
+    "meaning": "烤瓷熔附金属固定桥",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "porcelain fused to metal crown, PFM",
+    "meaning": "烤瓷熔附金属全冠",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "inclination of condylar path",
+    "meaning": "裸道斜度",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "removable die",
+    "meaning": "可卸代型",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "removable partial dentures, RPD",
+    "meaning": "可摘局部义齿",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "framework",
+    "meaning": "可摘局部义齿的支架",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "removable permanent splint",
+    "meaning": "可摘式恒久夹板",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "implant supported removable partial dentture",
+    "meaning": "可摘式局部种植义齿",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "Christensen phenomenon",
+    "meaning": "克里斯坦森现象",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "d ry mouth, xerostomia",
+    "meaning": "口干症",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "oral vestibule",
+    "meaning": "口腔前庭",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "dental materials for digital manufacturing",
+    "meaning": "口腔数字化加工材料",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "rapid prototyping technology for oral prosthesis",
+    "meaning": "口腔修复体快速成型技术",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "impression",
+    "meaning": "口腔印模",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "rapid prototyping technology",
+    "meaning": "快速成型技术",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "orbital defect",
+    "meaning": "眶缺损",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "orbital prosthesis",
+    "meaning": "眶膺复体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "connector",
+    "meaning": "连接体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "continuous clasp",
+    "meaning": "连续卡环",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "combined clasp",
+    "meaning": "联合卡环",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "interproximal space",
+    "meaning": "邻间隙",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "proximal plate",
+    "meaning": "邻面板",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "proximal axial reduction",
+    "meaning": "邻面的磨除",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "zinc phosphate cement'",
+    "meaning": "磷酸锌水门汀",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "esthetics",
+    "meaning": "美观",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "facial defect",
+    "meaning": "面部缺损",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "model or cast",
+    "meaning": "型",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "surveyor",
+    "meaning": "模型观测仪",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "polish surfa ce",
+    "meaning": "光面",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "retromolar pad",
+    "meaning": "｝牙后垫",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "reverse engineering, RE",
+    "meaning": "逆向",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mucosa-supported dentures",
+    "meaning": "膜支持式义齿",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "temporomandibular disorders, TMD",
+    "meaning": "下颌关节紊乱病",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "arrange artificial teeth",
+    "meaning": "』乍列人工牙",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "gingival retraction",
+    "meaning": "讳良",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "balanced occlusion",
+    "meaning": "衡祫",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "monoplane occlusion",
+    "meaning": "面祫",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "anterior palatal bar",
+    "meaning": "腮杆",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "inclination of protrusive condylar guidance",
+    "meaning": "伸平衡拾",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "protrusive balanced occlusion",
+    "meaning": "伸平衡拾",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "inlay",
+    "meaning": "嵌体土",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pontic",
+    "meaning": "价体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "inclination of incisal guidance",
+    "meaning": "切导斜度",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "inclination of incisal path",
+    "meaning": "道斜度",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "computer numerical control processing technology",
+    "meaning": "切—切削成型技术",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "incisive papilla",
+    "meaning": "切牙乳突",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "incisal rest",
+    "meaning": "切支托",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "all ceramic fixed bridge",
+    "meaning": "全瓷固定桥",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "all ceramic crown",
+    "meaning": "全瓷冠",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "full crown",
+    "meaning": "全冠",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "implant supported complete overdenture",
+    "meaning": "全颌（佯颌覆盖式种植义齿",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "complete denture",
+    "meaning": "忐全口义齿",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "zygomatic process",
+    "meaning": "陬突",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "artificial intelligence, AI",
+    "meaning": "人工智能",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "knife edge",
+    "meaning": "力状边缘",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "three arms clasp",
+    "meaning": "三臂卡环",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "3D printing,3DP",
+    "meaning": "三维打印技术",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mounting articulator",
+    "meaning": "上祫架",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "superstructure",
+    "meaning": "上部结构",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary defect",
+    "meaning": "上颌骨缺损",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "maxillary tuberosity",
+    "meaning": "十颌结节",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "hard area",
+    "meaning": "上颌硬区",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lingual bar",
+    "meaning": "击杆",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "cingulum rest",
+    "meaning": "舌—隆突支托",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lingual frenum",
+    "meaning": "舌系带",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "sublingual glands",
+    "meaning": "舌下腺",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lingualized occlusion",
+    "meaning": "舌向集中拾",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "lingual rest",
+    "meaning": "舌支托",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "depth guiding groove",
+    "meaning": "深度指示沟",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "biological width",
+    "meaning": "生物学宽度",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "residual alveolar ridge",
+    "meaning": "剩余牙槽睹",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "residual ridge resorption, RRR",
+    "meaning": "剩余牙槽峙骨吸收",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "food impaction",
+    "meaning": "食物嵌塞",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "try-in and adjustment",
+    "meaning": "试戴和调磨",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "resin-metal crown",
+    "meaning": "树脂金属混合全冠",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "composite resin crown",
+    "meaning": "树脂全冠",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "resin luting cement",
+    "meaning": "树脂水门汀",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "composite resin veneer",
+    "meaning": "树脂贴面",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "intracoronal attachment",
+    "meaning": "栓体拴道式冠内附着体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "two arms clasp",
+    "meaning": "双臂卡环",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "rigid fixed bridge",
+    "meaning": "双端固定桥",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "flabby ridge",
+    "meaning": "松软牙槽睹",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "plastic wafer",
+    "meaning": "塑料垫",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "etch-and-rinse",
+    "meaning": "酸蚀－冲洗型",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "endocrown",
+    "meaning": "髓腔固位冠",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "telescopic crown retainer",
+    "meaning": "套筒冠固位体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "telescope splint",
+    "meaning": "套筒冠牙周夹板",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "veneer",
+    "meaning": "贴面",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "push type clasp",
+    "meaning": "推型卡环",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "occlusal adjustment",
+    "meaning": "调拾",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "contour",
+    "meaning": "外形",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "embrasure",
+    "meaning": "外展隙",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "wrought wire clasp",
+    "meaning": "弯制卡环",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "stability",
+    "meaning": "稳定",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "chamfer",
+    "meaning": "无角肩台",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "edentulous jaw",
+    "meaning": "无牙颌",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "rest occlusal space, freeway space",
+    "meaning": "息止拾间隙",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "rest jaw position",
+    "meaning": "息止颌位",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mandibular defect",
+    "meaning": "下颌骨缺损",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "torus mandibularis",
+    "meaning": "下颌隆突",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "retromylohyoid fossa",
+    "meaning": "下颌舌骨后窝",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "mylohyoid ridge",
+    "meaning": "下颌舌骨暗",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "history of present illness",
+    "meaning": "现病史",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "linear occlusion",
+    "meaning": "线性拾",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "minor connector",
+    "meaning": "小连接体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "bevel edge",
+    "meaning": "斜面边缘",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "prosthesis screw",
+    "meaning": "修复体螺丝",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "digital manufacture technology for prosthesis",
+    "meaning": "修复体数字化制作技术",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "selective grinding",
+    "meaning": "选磨",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "selective laser melting, SLM",
+    "meaning": "选择性激光熔融制造",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "selective pressure impression",
+    "meaning": "选择性压力印模",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pressure impression",
+    "meaning": "压力印模",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "alveolar ridge",
+    "meaning": "牙槽崝",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "intercuspal position, ICP",
+    "meaning": "牙尖交错位",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "inclination of cusp or height of cusp",
+    "meaning": "牙尖斜度或牙尖高度",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "dentition defect",
+    "meaning": "牙列缺损",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "semisection",
+    "meaning": "牙体半切术",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "tooth defect",
+    "meaning": "牙体缺损",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "gingival former",
+    "meaning": "牙跟成形器",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "tooth-supported dentures",
+    "meaning": "牙支持式义齿",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "periodontal diseases",
+    "meaning": "牙周病",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "periodontal splint",
+    "meaning": "牙周夹板",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "extension clasp",
+    "meaning": "延伸卡环",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "bite plane",
+    "meaning": "咬合板",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "occlusal disease",
+    "meaning": "咬合病",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "occlusal adjustment",
+    "meaning": "咬合调改",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "occlusion surface",
+    "meaning": "咬合面",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "occlusion pain",
+    "meaning": "咬合痛",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "occlusal reconstruction",
+    "meaning": "咬合重建",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "stereo lithography apparatus, SLA",
+    "meaning": "液态光敏树脂选择性固化",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "denture space",
+    "meaning": "义齿间隙",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "ear prosthesis",
+    "meaning": "义耳",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pterygomaxillary hamular notch",
+    "meaning": "翼上颌切迹",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "pterygomandibular ligament, raphe",
+    "meaning": "＿翼下颌韧带",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "gingivitis",
+    "meaning": "跟缘炎",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "impression",
+    "meaning": "印模",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "impression materials",
+    "meaning": "印模材料",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "impression tray",
+    "meaning": "印模托盘",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "prefabricated post",
+    "meaning": "预成桩",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "healing cap",
+    "meaning": "愈合帽",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "circumferential clasp",
+    "meaning": "圆环形卡环",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "konuskronen telescope denture",
+    "meaning": "圆锥型套筒冠义齿",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "distobuccal angles area",
+    "meaning": "远中颊角区",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "binding force",
+    "meaning": "约束力",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "temporary splint",
+    "meaning": "暂时性夹板",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "temporary restoration",
+    "meaning": "暂时修复体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "premature contact",
+    "meaning": "早接触",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "cementation",
+    "meaning": "粘固",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "finishing and polishing",
+    "meaning": "粘固后处理",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "adhesive resin",
+    "meaning": "粘接树脂",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "forward engineering, FE",
+    "meaning": "正向",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "centric balanced occlusion",
+    "meaning": "正中平衡拾",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "fulcrum line",
+    "meaning": "支点线",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "rest",
+    "meaning": "支托",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "direct retainer",
+    "meaning": "直接固位体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "direct veneer technique",
+    "meaning": "直接贴面修复技术",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "neutral zone",
+    "meaning": "中性区",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "center screw",
+    "meaning": "中央螺丝",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "implant fixed partial denture,I FPD",
+    "meaning": "种植固定义齿",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "implant removable partial denture, IRPD",
+    "meaning": "种植可摘义齿",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "implant",
+    "meaning": "种植体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "implant protective occlusion,I PO",
+    "meaning": "种植体保护性祫",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "implant analog",
+    "meaning": "种植体替代体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "implant supported complete overdenture",
+    "meaning": "种植体支待的全口覆盖义齿",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "peri-implantitis",
+    "meaning": "种植体周炎",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "implant supported denture",
+    "meaning": "种植义齿",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "relining",
+    "meaning": "重衬",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "axial reduction",
+    "meaning": "轴面磨除",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "primary stress-bearing area",
+    "meaning": "主承托区",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "casting mould",
+    "meaning": "铸型",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "casting",
+    "meaning": "铸造",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "custom cast post",
+    "meaning": "铸造金属桩",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "casting clasp",
+    "meaning": "铸造卡环",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "axis of rotation,A R",
+    "meaning": "转动轴",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "impression cylinder",
+    "meaning": "转移体",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "post crown",
+    "meaning": "桩冠",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "post-and-core crown",
+    "meaning": "桩核冠",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "flasking",
+    "meaning": "装盒",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "spontaneous pain",
+    "meaning": "自发性疼痛",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "self-etch",
+    "meaning": "自酸蚀型",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "freedom in centric",
+    "meaning": "自由正中",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "tissue conditioner",
+    "meaning": "组织调整剂",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "tissue surface",
+    "meaning": "组织面",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  },
+  {
+    "word": "bur,drill",
+    "meaning": "钻针",
+    "subject": "口腔修复",
+    "known": 0,
+    "unknown": 0
+  }
 ];
 
 let history=[];
@@ -214,6 +6393,7 @@ function render(){
   document.getElementById("stat").innerText=`不认识 ${w.unknown} 次 ｜ 认识 ${w.known} 次`;
   document.getElementById("word").innerText=w.word;
   document.getElementById("meaning").innerText=w.meaning;
+  document.getElementById("note").innerHTML=`<span>备注：${w.subject}</span>`;
   document.getElementById("todo").innerText=words.filter(w=>w.known<3).length;
   document.getElementById("done").innerText=words.filter(w=>w.known>=3).length;
   save();
@@ -246,6 +6426,7 @@ function openModal(){
       <tr>
         <td class="en">${w.word}</td>
         <td class="cn">${w.meaning}</td>
+        <td>${w.subject}</td>
         <td>${w.unknown}</td>
         <td>${w.known}</td>
       </tr>`;
@@ -262,7 +6443,7 @@ function exportProgress(){
   const blob=new Blob([JSON.stringify({words,currentIndex},null,2)],{type:"application/json"});
   const a=document.createElement("a");
   a.href=URL.createObjectURL(blob);
-  a.download="oral_pathology_progress.json";
+  a.download="oral_professional_english_progress.json";
   a.click();
 }
 
