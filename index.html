@@ -6419,19 +6419,27 @@ function save(){
 
 /* ===== 悬浮窗逻辑 ===== */
 function openModal(){
+  document.getElementById("modal").style.display="flex";
   const tbody=document.getElementById("wordTable");
   tbody.innerHTML="";
+  const fragment=document.createDocumentFragment();
   [...words].sort((a,b)=>a.word.localeCompare(b.word)).forEach(w=>{
-    tbody.innerHTML+=`
-      <tr>
-        <td class="en">${w.word}</td>
-        <td class="cn">${w.meaning}</td>
-        <td>${w.subject}</td>
-        <td>${w.unknown}</td>
-        <td>${w.known}</td>
-      </tr>`;
+    const tr=document.createElement("tr");
+    [
+      {text:w.word,className:"en"},
+      {text:w.meaning,className:"cn"},
+      {text:w.subject},
+      {text:w.unknown},
+      {text:w.known}
+    ].forEach(cell=>{
+      const td=document.createElement("td");
+      td.innerText=cell.text;
+      if(cell.className) td.className=cell.className;
+      tr.appendChild(td);
+    });
+    fragment.appendChild(tr);
   });
-  document.getElementById("modal").style.display="flex";
+  tbody.appendChild(fragment);
 }
 function closeModal(e){
   if(!e || e.target.id==="modal"){
