@@ -59,10 +59,20 @@ body{
   font-size:24px;
   width:46px;
   height:46px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
   border:none;
   border-radius:50%;
   background:var(--soft);
   cursor:pointer;
+  line-height:0;
+  color:#0b5cad;
+}
+.speaker-icon{
+  width:23px;
+  height:23px;
+  display:block;
 }
 .phonetic-text{
   font-family:"Times New Roman",serif;
@@ -227,9 +237,11 @@ th{
 }
 td.en{
   font-family:"Times New Roman",serif;
+  overflow-wrap:anywhere;
 }
 td.cn{
   font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  overflow-wrap:anywhere;
 }
 
 @media(max-width:600px){
@@ -266,6 +278,10 @@ td.cn{
     height:42px;
     font-size:20px;
     flex:0 0 auto;
+  }
+  .speaker-icon{
+    width:21px;
+    height:21px;
   }
   .phonetic-text{
     max-width:calc(100% - 52px);
@@ -306,10 +322,13 @@ td.cn{
     width:100%;
   }
   .footer button:not(.link-count){
-    flex:1 1 calc(50% - 8px);
+    flex:1 1 calc(50% - 5px);
     min-height:42px;
     padding:8px 10px;
     font-size:14px;
+  }
+  .footer button:not(.link-count):first-child{
+    flex-basis:100%;
   }
   .modal{
     align-items:flex-end;
@@ -318,6 +337,7 @@ td.cn{
   .modal-content{
     width:100%;
     max-height:88svh;
+    overflow-x:hidden;
     border-radius:var(--radius) var(--radius) 0 0;
     padding:14px 12px 18px;
   }
@@ -331,11 +351,21 @@ td.cn{
     font-size:16px;
   }
   table{
-    min-width:680px;
+    width:100%;
+    table-layout:fixed;
     font-size:14px;
   }
+  th:nth-child(1),td:nth-child(1){width:34%}
+  th:nth-child(2),td:nth-child(2){width:30%}
+  th:nth-child(3),td:nth-child(3){width:16%}
+  th:nth-child(4),td:nth-child(4){width:10%}
+  th:nth-child(5),td:nth-child(5){width:10%}
   th,td{
-    padding:8px 6px;
+    padding:8px 4px;
+    white-space:normal;
+    word-break:break-word;
+    overflow-wrap:anywhere;
+    line-height:1.35;
   }
 }
 </style>
@@ -348,7 +378,16 @@ td.cn{
 <div id="stat" class="stat"></div>
 
 <div id="word" class="word"></div>
-<div class="phonetic"><button onclick="speak()">🔊</button><span id="phoneticText" class="phonetic-text"></span></div>
+<div class="phonetic">
+  <button onclick="speak()" aria-label="播放发音">
+    <svg class="speaker-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"></path>
+      <path d="M16 8.5c1 .9 1.5 2.1 1.5 3.5s-.5 2.6-1.5 3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+      <path d="M18.8 5.7A8.8 8.8 0 0 1 21 12a8.8 8.8 0 0 1-2.2 6.3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+  </button>
+  <span id="phoneticText" class="phonetic-text"></span>
+</div>
 <div id="meaning" class="meaning"></div>
 <div id="note" class="note"></div>
 
