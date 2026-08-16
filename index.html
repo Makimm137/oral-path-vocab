@@ -45,10 +45,20 @@ body{
   text-align:center;
 }
 .phonetic{
-  font-family:"Times New Roman",serif;
-  font-size:32px;
-  text-align:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  margin-top:6px;
   color:var(--sub);
+}
+.phonetic button{
+  font-size:24px;
+}
+.phonetic-text{
+  font-family:"Times New Roman",serif;
+  font-size:18px;
+  line-height:1.4;
 }
 .meaning{
   margin-top:26px;
@@ -199,7 +209,7 @@ td.cn{
 <div id="stat" class="stat"></div>
 
 <div id="word" class="word"></div>
-<div class="phonetic"><button onclick="speak()">🔊</button></div>
+<div class="phonetic"><button onclick="speak()">🔊</button><span id="phoneticText" class="phonetic-text"></span></div>
 <div id="meaning" class="meaning"></div>
 <div id="note" class="note"></div>
 
@@ -6588,7 +6598,7 @@ const words = [
 const MASTER_THRESHOLD=3;
 const REVIEW_GAPS=[3,8,25];
 
-let history=[];
+let history=JSON.parse(localStorage.getItem("history")||"[]");
 let currentRound=Number(localStorage.getItem("reviewRound"))||0;
 let currentIndex=Number(localStorage.getItem("currentIndex"))||0;
 let saved=JSON.parse(localStorage.getItem("progress")||"null");
@@ -6623,6 +6633,7 @@ function render(){
   const w=words[currentIndex];
   document.getElementById("stat").innerText=`不认识 ${w.unknown} 次 ｜ 连续认识 ${w.knownStreak}/${MASTER_THRESHOLD} ｜ ${w.mastered?"已背":"复习中"}`;
   document.getElementById("word").innerText=w.word;
+  document.getElementById("phoneticText").innerText=wordToPhonetic(w.word);
   document.getElementById("meaning").innerText=w.meaning;
   document.getElementById("note").innerHTML=`<span>备注：${w.subject}</span>`;
   document.getElementById("todo").innerText=words.filter(w=>!w.mastered).length;
@@ -6654,6 +6665,14 @@ function markUnknown(){
   w.nextReview=currentRound+2+Math.floor(Math.random()*3);
   pickNext();
   render();
+}
+
+function prevWord(){
+  const previous=history.pop();
+  if(Number.isInteger(previous)){
+    currentIndex=previous;
+    render();
+  }
 }
 
 function pickNext(){
@@ -6699,9 +6718,64 @@ function speak(){
   speechSynthesis.speak(u);
 }
 
+function wordToPhonetic(text){
+  const dictionary={
+    alveolar:"ælˈviːələr", anatomical:"ˌænəˈtɑːmɪkəl", artery:"ˈɑːrtəri",
+    bite:"baɪt", bone:"boʊn", canal:"kəˈnæl", canine:"ˈkeɪnaɪn",
+    cement:"sɪˈment", cervical:"ˈsɜːrvɪkəl", clasp:"klæsp",
+    condyle:"ˈkɑːndaɪl", condylar:"ˈkɑːndɪlər", crown:"kraʊn",
+    curve:"kɜːrv", dental:"ˈdentəl", denture:"ˈdentʃər", foramen:"fəˈreɪmən",
+    fossa:"ˈfɑːsə", gingival:"ˈdʒɪndʒɪvəl", gland:"ɡlænd",
+    implant:"ˈɪmplænt", incisal:"ɪnˈsaɪzəl", incisor:"ɪnˈsaɪzər",
+    labial:"ˈleɪbiəl", lateral:"ˈlætərəl", ligament:"ˈlɪɡəmənt",
+    lingual:"ˈlɪŋɡwəl", mandibular:"mænˈdɪbjələr", maxilla:"mækˈsɪlə",
+    maxillary:"ˈmæksəˌleri", mucosa:"mjuːˈkoʊsə", muscle:"ˈmʌsəl",
+    nasal:"ˈneɪzəl", nerve:"nɜːrv", occlusion:"əˈkluːʒən",
+    occlusal:"əˈkluːzəl", palate:"ˈpælət", palatal:"ˈpælətəl",
+    palatine:"ˈpælətaɪn", periodontal:"ˌperiəˈdɑːntəl", prosthesis:"prɑːsˈθiːsɪs",
+    prosthetic:"prɑːsˈθetɪk", pterygoid:"ˈterɪɡɔɪd", ridge:"rɪdʒ",
+    splint:"splɪnt", surface:"ˈsɜːrfɪs", temporal:"ˈtempərəl",
+    tooth:"tuːθ", vestibular:"veˈstɪbjələr", zygomatic:"ˌzaɪɡəˈmætɪk"
+  };
+  return "/" + text
+    .toLowerCase()
+    .replace(/[()]/g,"")
+    .split(/([\s,-]+)/)
+    .map(part=>{
+      if(!/[a-z]/.test(part)) return part;
+      const clean=part.replace(/[^a-z]/g,"");
+      return dictionary[clean]||roughPhonetic(clean);
+    })
+    .join("")
+    .replace(/\s+/g," ")
+    .trim() + "/";
+}
+
+function roughPhonetic(word){
+  return word
+    .replace(/tion$/,"ʃən")
+    .replace(/sion$/,"ʒən")
+    .replace(/ph/g,"f")
+    .replace(/ch/g,"tʃ")
+    .replace(/sh/g,"ʃ")
+    .replace(/th/g,"θ")
+    .replace(/ck/g,"k")
+    .replace(/qu/g,"kw")
+    .replace(/x/g,"ks")
+    .replace(/c(?=[eiy])/g,"s")
+    .replace(/c/g,"k")
+    .replace(/g(?=[eiy])/g,"dʒ")
+    .replace(/a/g,"æ")
+    .replace(/e/g,"e")
+    .replace(/i/g,"ɪ")
+    .replace(/o/g,"ɑ")
+    .replace(/u/g,"ʌ");
+}
+
 function save(){
   localStorage.setItem("currentIndex",currentIndex);
   localStorage.setItem("reviewRound",currentRound);
+  localStorage.setItem("history",JSON.stringify(history.slice(-80)));
   localStorage.setItem("progress",JSON.stringify(words.map(w=>({
     known:w.known,
     unknown:w.unknown,
