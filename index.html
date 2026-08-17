@@ -47,23 +47,23 @@ body{
   line-height:1.08;
   overflow-wrap:anywhere;
   cursor:pointer;
-  transition:letter-spacing .22s ease, transform .22s ease;
-}
-.word.split{
-  letter-spacing:.02em;
+  transition:transform .22s ease;
 }
 .word-token,
 .syllable,
-.phoneme{
+.phoneme,
+.syllable-separator{
   display:inline-block;
 }
 .syllable{
-  margin:0 .08em;
   animation:splitIn .22s ease both;
 }
 .phoneme{
-  margin:0 .045em;
   animation:splitIn .22s ease both;
+}
+.syllable-separator{
+  color:var(--sub);
+  margin:0 .035em;
 }
 .word-gap{
   display:inline-block;
@@ -350,11 +350,8 @@ td.cn{
     margin-top:auto;
     font-size:clamp(34px,12vw,52px);
   }
-  .syllable{
-    margin:0 .055em;
-  }
-  .phoneme{
-    margin:0 .035em;
+  .syllable-separator{
+    margin:0 .025em;
   }
   .phonetic{
     gap:8px;
@@ -6950,6 +6947,12 @@ function renderWordDisplay(text){
     const token=document.createElement("span");
     token.className="word-token";
     part.chunks.forEach((chunk,index)=>{
+      if(index>0){
+        const separator=document.createElement("span");
+        separator.className="syllable-separator";
+        separator.textContent="·";
+        token.appendChild(separator);
+      }
       const chunkSpan=document.createElement("span");
       chunkSpan.className=part.mode==="phoneme"?"phoneme":"syllable";
       chunkSpan.style.animationDelay=`${Math.min(index*25,180)}ms`;
