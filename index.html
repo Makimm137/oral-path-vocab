@@ -319,6 +319,14 @@ td.en{
   font-family:"Times New Roman",serif;
   overflow-wrap:anywhere;
 }
+td.en.jumpable{
+  color:var(--primary);
+  cursor:pointer;
+  font-weight:600;
+}
+td.en.jumpable:hover{
+  text-decoration:underline;
+}
 td.cn{
   font-family:"Microsoft YaHei","PingFang SC",sans-serif;
   overflow-wrap:anywhere;
@@ -7227,16 +7235,17 @@ function renderWordTable(){
   tbody.innerHTML="";
   const fragment=document.createDocumentFragment();
   words
-    .filter(w=>modalMode!=="mastered"||w.mastered)
-    .filter(w=>{
+    .map((w,index)=>({w,index}))
+    .filter(({w})=>modalMode!=="mastered"||w.mastered)
+    .filter(({w})=>{
       if(!keyword) return true;
       return [w.word,w.meaning,w.subject].some(text=>String(text).toLowerCase().includes(keyword));
     })
-    .sort((a,b)=>a.word.localeCompare(b.word))
-    .forEach(w=>{
+    .sort((a,b)=>a.w.word.localeCompare(b.w.word))
+    .forEach(({w,index})=>{
     const tr=document.createElement("tr");
     [
-      {text:w.word,className:"en"},
+      {text:w.word,className:"en jumpable",index},
       {text:w.meaning,className:"cn"},
       {text:w.subject},
       {text:w.unknown},
@@ -7245,12 +7254,26 @@ function renderWordTable(){
       const td=document.createElement("td");
       td.innerText=cell.text;
       if(cell.className) td.className=cell.className;
+      if(Number.isInteger(cell.index)){
+        td.title="跳到这个单词";
+        td.onclick=()=>jumpToWord(cell.index);
+      }
       tr.appendChild(td);
     });
     fragment.appendChild(tr);
   });
   tbody.appendChild(fragment);
 }
+
+function jumpToWord(index){
+  if(!Number.isInteger(index)||!words[index]) return;
+  if(index!==currentIndex) history.push(currentIndex);
+  currentIndex=index;
+  wordSplit=false;
+  closeModal();
+  render();
+}
+
 function closeModal(e){
   if(!e || e.target.id==="modal"){
     document.getElementById("modal").style.display="none";
